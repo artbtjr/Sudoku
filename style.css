@@ -1,0 +1,83 @@
+table {
+	position: relative;
+	border-spacing: 0;
+	border: 4px solid #0abb9c;
+	border-collapse: collapse;
+	display: none;
+}
+
+.outer table {
+
+}
+
+td {
+	border: 2px dotted #0abb9c;
+	padding: 0;
+}
+
+#t0x2, #t0x5, #t1x2, #t1x5, #t2x5,
+#t3x2,#t3x5, #t4x2, #t4x5, #t5x2, #t5x5,
+#t6x2, #t6x5, #t7x2, #t7x5, #t8x2, #t8x5 {
+	border-right: 3px solid #0abb9c;
+}
+
+#t2x0, #t2x1, #t2x3, #t2x4, #t2x6, #t2x7,
+#t5x0, #t5x1, #t5x3, #t5x4, #t5x6, #t5x7 {
+	border-bottom: 3px solid #0abb9c;
+}
+
+#t2x2, #t2x5, #t2x8, #t5x2, #t5x5, #t5x8 {
+	border-bottom: 3px solid #0abb9c;
+	border-right: 3px solid #0abb9c;
+}
+
+.inner td {
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	font-size: 2.0em;
+	cursor:default;
+}
+
+.inner td:hover {
+	background-color:#eeeeee;
+}
+
+.inner td.error {
+	color:#ff0000;
+}
+
+.inner td.hint {
+	background-color:#dddddd;
+}
+
+.inner td.selected {
+	background-color:#99ffff;
+}
+
+#overlay {
+	visibility: hidden;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width:100%;
+	height:100%;
+	text-align:center;
+	z-index: 1000;
+}
+
+#overlay div {
+	width:300px;
+	height:250px;
+	margin: 150px auto;
+	background-color: #000;
+	text-align:center;
+        filter:alpha(opacity=50);
+        -moz-opacity:0.5;
+        -khtml-opacity: 0.5;
+        opacity: 0.5;
+}
+
+#overlay img {
+	margin-top:75px;
+}
