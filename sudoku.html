@@ -6,37 +6,218 @@
 		<link href="style.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="sudoku.js"></script>
 		<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
-		<script>
+		<script language="javascript" type="text/javascript">
+
+			var puzzle;
+			var selectedTile;
+			var r, c;
+
 			$(document).ready(function() {
+				init();
 				$("#grid").fadeIn(500);
+				$(".emptyCell").click(function() {
+					r = selectedTile.getAttribute('id').charAt(1);
+					c = selectedTile.getAttribute('id').charAt(3);
+
+				    $("#numPad").fadeIn(100);
+				    //$("#numPad").css( {position:"absolute", top: event.pageY, left: event.pageX});
+				});
+
+
+				$("#np1").click(function() {
+					selectedTile.innerHTML = "1";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np2").click(function() {
+					selectedTile.innerHTML = "2";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np3").click(function() {
+					selectedTile.innerHTML = "3";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np4").click(function() {
+					selectedTile.innerHTML = "4";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np5").click(function() {
+					selectedTile.innerHTML = "5";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np6").click(function() {
+					selectedTile.innerHTML = "6";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np7").click(function() {
+					selectedTile.innerHTML = "7";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np8").click(function() {
+					selectedTile.innerHTML = "8";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+				$("#np9").click(function() {
+					selectedTile.innerHTML = "9";
+					deselect();
+					$("#numPad").fadeOut(100);
+				});
+
+
+				$("#solve").click(function() {
+				    solve();
+				});
+				$("#newGame").click(function() {
+				    puzzle = null;
+				    selectedTile = null;
+				    r = null;
+				    c = null;
+				    init();
+				});
 			});
+
+			
+
+			function init() {
+				puzzle = new generateSudoku();
+				for(var i = 0; i < 9; i++) {
+					for(var j = 0; j < 9; j++) {
+						var tile = document.getElementById("t" + i + "x" + j);
+						if(puzzle.getTileNumber(i, j) === 0) {
+							tile.className += "emptyCell";
+							tile.innerHTML = "";
+							tile.onclick = function() {
+								if(selectedTile == null) {
+									selectedTile = this;
+									selectedTile.className = "emptyCell selected";
+								}
+								else {
+									deselect();
+									$("#numPad").fadeOut(100);
+								}
+								
+							};
+						}
+						else {
+							tile.style.backgroundColor = "#f3f7f8";
+							tile.className += "cell";
+							tile.innerHTML = puzzle.getTileNumber(i, j);
+						}
+					}
+				}
+			}
+
+			function deselect() {
+				selectedTile.className = "emptyCell";
+				selectedTile = null;
+			}
+
+			function newGame() {
+				//start new game
+			}
+
+			function solve() {
+				for(var i = 0; i < 9; i++) {
+					for(var j = 0; j < 9; j++) {
+						var tile = document.getElementById("t" + i + "x" + j);
+						tile.innerHTML = puzzle.getSolution(i, j);
+						tile.className = "cell";
+					}
+				}
+			}
+
+			function showErrors() {
+
+			}
 		</script>
 
 	</head>
 
 	<body>
-		<section>
+		<section id="logosection">
 			<img class="logo" src="img/sudokuberlogo.png" />
 		</section>
-		<section id="sudokuPuzzle" onload="Javascript:init();">
-			<table class="inner" align="center" id="grid">
-				
+		<section id="sudokuPuzzle">
+			<div id='numPad'>
+				<span id="np1" class='padNumbers' value='1'>1</span>
+				<span id="np2" class='padNumbers' value='2'>2</span>
+				<span id="np3" class='padNumbers' value='3'>3</span>
+				<span id="np4" class='padNumbers' value='4'>4</span>
+				<span id="np5" class='padNumbers' value='5'>5</span>
+				<span id="np6" class='padNumbers' value='6'>6</span>
+				<span id="np7" class='padNumbers' value='7'>7</span>
+				<span id="np8" class='padNumbers' value='8'>8</span>
+				<span id="np9" class='padNumbers' value='9'>9</span>
+			</div>
+			<center>
+				<form id="formwrapper">
+					<span id="newGame" class="formbutton">Give me another</span>
+					<span id="solve" class="formbutton">Give up, loser</span>
+				</form>
+			</center>
+			<table class="inner container" align="center" id="grid">
+				<tr>
+					<td id='t0x0'></td><td id='t0x1'></td><td id='t0x2'></td>
+					<td id='t0x3'></td><td id='t0x4'></td><td id='t0x5'></td>
+					<td id='t0x6'></td><td id='t0x7'></td><td id='t0x8'></td>
+				</tr>
+				<tr>
+					<td id='t1x0'></td><td id='t1x1'></td><td id='t1x2'></td>
+					<td id='t1x3'></td><td id='t1x4'></td><td id='t1x5'></td>
+					<td id='t1x6'></td><td id='t1x7'></td><td id='t1x8'></td>
+				</tr>
+				<tr>
+					<td id='t2x0'></td><td id='t2x1'></td><td id='t2x2'></td>
+					<td id='t2x3'></td><td id='t2x4'></td><td id='t2x5'></td>
+					<td id='t2x6'></td><td id='t2x7'></td><td id='t2x8'></td>
+				</tr>
 
-				<script language="javascript" type="text/javascript">
-					var puzzle = new generateSudoku();
-					for(var i = 0; i < 9; i++) {
-						document.write("<tr>");
-						for(var j = 0; j < 9; j++) {
-							document.write("<td id='t" + i + "x" + j + "'>" + puzzle[i][j] + "</td>");
-						}
-						document.write("</tr>");
-					}
-				</script>
 
+				<tr>
+					<td id='t3x0'></td><td id='t3x1'></td><td id='t3x2'></td>
+					<td id='t3x3'></td><td id='t3x4'></td><td id='t3x5'></td>
+					<td id='t3x6'></td><td id='t3x7'></td><td id='t3x8'></td>
+				</tr>
+				<tr>
+					<td id='t4x0'></td><td id='t4x1'></td><td id='t4x2'></td>
+					<td id='t4x3'></td><td id='t4x4'></td><td id='t4x5'></td>
+					<td id='t4x6'></td><td id='t4x7'></td><td id='t4x8'></td>
+				</tr>
+				<tr>
+					<td id='t5x0'></td><td id='t5x1'></td><td id='t5x2'></td>
+					<td id='t5x3'></td><td id='t5x4'></td><td id='t5x5'></td>
+					<td id='t5x6'></td><td id='t5x7'></td><td id='t5x8'></td>
+				</tr>
+
+
+				<tr>
+					<td id='t6x0'></td><td id='t6x1'></td><td id='t6x2'></td>
+					<td id='t6x3'></td><td id='t6x4'></td><td id='t6x5'></td>
+					<td id='t6x6'></td><td id='t6x7'></td><td id='t6x8'></td>
+				</tr>
+				<tr>
+					<td id='t7x0'></td><td id='t7x1'></td><td id='t7x2'></td>
+					<td id='t7x3'></td><td id='t7x4'></td><td id='t7x5'></td>
+					<td id='t7x6'></td><td id='t7x7'></td><td id='t7x8'></td>
+				</tr>
+				<tr>
+					<td id='t8x0'></td><td id='t8x1'></td><td id='t8x2'></td>
+					<td id='t8x3'></td><td id='t8x4'></td><td id='t8x5'></td>
+					<td id='t8x6'></td><td id='t8x7'></td><td id='t8x8'></td>
+				</tr>
 
 
 			</table>
+			
 		</section>
+		
 	</body>
 
 	<footer>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>SudokUber!</title>
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="sudoku.js"></script>
+		<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#grid").fadeIn(500);
+				$(".btn").click(function() {
+				    $(".numPad").fadeIn(100);
+				});
+			});	
+		</script>
+
+	</head>
+
+	<body>
+		<section>
+			<img class="logo" src="img/sudokuberlogo.png" />
+		</section>
+		<section id="sudokuPuzzle" onload="Javascript:init();">
+			<table class="inner container" align="center" id="grid">
+				<script language="javascript" type="text/javascript">
+					function init() {
+						var puzzle = new generateSudoku();
+						for(var i = 0; i < 9; i++) {
+							document.write("<tr>");
+							for(var j = 0; j < 9; j++) {
+								if(puzzle[i][j] == "") {
+									document.write("<td id='t" + i + "x" + j + "' class='btn main'>" + puzzle[i][j] + "</td>");
+								}
+								else {
+									document.write("<td id='t" + i + "x" + j + "' class='hint main'>" + puzzle[i][j] + "</td>");
+								}
+							}
+							document.write("</tr>");
+						}
+					}
+
+					function setNumber(row, col, num) {
+						puzzle.setNumber(row, col, num);
+					}
+				</script>
+
+
+
+			</table>
+			<div class='numPad'>
+				<span class='padNumbers'>1</span>
+				<span class='padNumbers'>2</span>
+				<span class='padNumbers'>3</span>
+				<span class='padNumbers'>4</span>
+				<span class='padNumbers'>5</span>
+				<span class='padNumbers'>6</span>
+				<span class='padNumbers'>7</span>
+				<span class='padNumbers'>8</span>
+				<span class='padNumbers'>9</span>
+			</div>
+		</section>
+		
+	</body>
+
+	<footer>
+		Web page design by Art Tucay Jr., for Uber Inc. All fonts within this page are used under personal means and are not meant for commerial use. Rakoon font designed by Mans Greback.
+	</footer>
+</html>

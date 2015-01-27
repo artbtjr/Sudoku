@@ -1,3 +1,9 @@
+
+
+#logosection {
+	box-shadow: 0px 15px 10px 1px #888888;
+}
+
 img.logo {
 	display: block;
 	margin-top: 20px;
@@ -7,19 +13,28 @@ img.logo {
 	height: auto;
 }
 
-table {
+table.container {
 	position: relative;
 	border-spacing: 0;
 	border: 4px solid #0abb9c;
 	border-collapse: collapse;
 	display: none;
-    font-family: Arial, Times, sans-serif;
-    margin-top: 4em;
+	color: #686868;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    margin-top: 1em;
 }
 
-td {
+td.cell {
 	border: 2px dotted #0abb9c;
 	padding: 0;
+	cursor: context-menu;
+}
+
+td.emptyCell {
+	border: 2px dotted #0abb9c;
+	padding: 0;
+	cursor: pointer;
 }
 
 #t0x2, #t0x5, #t1x2, #t1x5, #t2x5,
@@ -43,50 +58,65 @@ td {
 	height: 60px;
 	text-align: center;
 	font-size: 2.0em;
-	cursor:default;
 }
 
 .inner td:hover {
-	background-color:#eeeeee;
+	background-color:#d5e8e1;
 }
 
 .inner td.error {
 	color:#ff0000;
 }
 
-.inner td.hint {
-	background-color:#dddddd;
-}
-
 .inner td.selected {
-	background-color:#99ffff;
+	background-color:#ecbcda;
 }
 
-#overlay {
-	visibility: hidden;
+#sudokuPuzzle {
+	position: relative;
+}
+
+.formbutton {
+	position: relative;
+	background: #406ae2;
+	display: inline-block;
+	padding: 8px;
+	color: #fff;
+	text-decoration: none;
+	font-family: Arial, sans-serif;
+    font-weight: bold;
+	line-height: 1;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer; 
+	margin-top: 3em;
+}
+
+#numPad {
 	position: absolute;
-	left: 0px;
-	top: 0px;
-	width:100%;
-	height:100%;
-	text-align:center;
+	width: 280px;
+	height: 40px;
+	display: none;
+	background-color: #406ae2;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-o-border-radius: 20px;
+	-ms-border-radius: 20px;
+	border-radius: 20px;
+	cursor: pointer;
 	z-index: 1000;
 }
 
-#overlay div {
-	width:300px;
-	height:250px;
-	margin: 150px auto;
-	background-color: #000;
-	text-align:center;
-        filter:alpha(opacity=50);
-        -moz-opacity:0.5;
-        -khtml-opacity: 0.5;
-        opacity: 0.5;
-}
-
-#overlay img {
-	margin-top:75px;
+.padNumbers {
+	text-align: center;
+	padding: 8px;
+	line-height: 40px;
+	font-size: 20px;
+	color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 footer {
