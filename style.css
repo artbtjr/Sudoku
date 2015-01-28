@@ -1,7 +1,7 @@
 
 
 #logosection {
-	box-shadow: 0px 15px 10px 1px #888888;
+	/* box-shadow: 0px 15px 10px 1px #888888; */
 }
 
 img.logo {
@@ -78,7 +78,7 @@ td.emptyCell {
 
 .formbutton {
 	position: relative;
-	background: #406ae2;
+	background: #689fce;
 	display: inline-block;
 	padding: 8px;
 	color: #fff;
@@ -95,10 +95,10 @@ td.emptyCell {
 
 #numPad {
 	position: absolute;
-	width: 280px;
-	height: 40px;
+	width: 154px;
+	height: 80px;
 	display: none;
-	background-color: #406ae2;
+	background-color: #689fce;
 	-moz-border-radius: 20px;
 	-webkit-border-radius: 20px;
 	-o-border-radius: 20px;
@@ -110,7 +110,7 @@ td.emptyCell {
 
 .padNumbers {
 	text-align: center;
-	padding: 8px;
+	padding: 6px;
 	line-height: 40px;
 	font-size: 20px;
 	color: #ffffff;

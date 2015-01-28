@@ -24,7 +24,6 @@ function generateSudoku() {
 		[0, 0, 0, 0, 0, 0, 0, 0, 0]
 		];
 
-
 	shuffle(grid);
 	hideTiles(grid, hGrid);
 	this.getTileNumber = function(row, col) {
@@ -37,6 +36,73 @@ function generateSudoku() {
 
 	this.setNumber = function(row, col, num) {
 		grid[row][col] = num;
+	};
+
+	this.solver = function(fGrid, row, col, val) {
+		//alert("accessing solver function with value: " + val);
+		//alert("fGrid: " + fGrid);
+		//alert("row: " + row + ", col: " + col + ", val: " + val);
+		var v = this.isValid(fGrid, row, col, val);
+		if(!v) {
+			//alert("solver: false");
+			return false;
+		}
+		//alert("solver: true");
+		return true;
+	};
+
+	this.isValid = function(fGrid, row, col, val) {
+		//alert("accessing isvalid function with value: " + val);
+		//alert("fGrid: "+ fGrid);
+
+		var rowCnt = this.countInstances(fGrid[row], val);
+		//alert("fGrid[" + row + "]: " + fGrid[row] + ", rowCnt: " + rowCnt);
+
+		var colCnt = this.countInstances(this.columnToArray(fGrid, col), val);
+		//alert("columnToArray(fGrid, " + col + "): " + this.columnToArray(fGrid, col) + ", colCnt: " + colCnt);
+
+		var subCnt = this.countInstances(this.subsquareToArray(fGrid, row, col), val);
+		//alert("subsquareToArray(fGrid, " + row + ", " + col + "): " + this.subsquareToArray(fGrid, row, col) + ", subCnt: " + subCnt);
+
+		if(rowCnt == 1 && colCnt == 1 && subCnt == 1) {
+			//alert("isvalid: true");
+			return true;
+		}
+		//alert("isvalid: false");
+		return false;
+	};
+
+	this.columnToArray = function(fGrid, col) {
+		//alert("accessing columnToArray function");
+		var colArray = [];
+		for(var i = 0; i < 9; i++) {
+			colArray.push(fGrid[i][col]);
+		}
+		//alert("colarray: " + colArray);
+		return colArray;
+	};
+
+	//Convert a subsquare to a 1D array, top left to bottom right
+	this.subsquareToArray = function(fGrid, row, col) {
+		//alert("accessing subsquareToArray function");
+		var subArray = [];
+		var subrow = row - (row % 3);
+		var subcol = col - (col % 3);
+		for(var i = 0; i < 3; i++) {
+			for(var j = 0; j < 3; j++) {
+				subArray.push(fGrid[i+subrow][j+subcol]);
+			}
+		}
+		//alert("subarray: " + subArray);
+		return subArray;
+	};
+
+	this.countInstances = function(xGrid, val) {
+		var cnt = 0;
+		for(var i = 0; i < xGrid.length; i++) {
+			if(xGrid[i] == val) cnt++;
+		}
+		return cnt;
 	};
 }
 
@@ -150,51 +216,4 @@ function hideTiles(aGrid, hiddenGrid) {
 	*/
 
 
-function solver(aGrid) {
-	for(var i = 0; i < 9; i++) {
-		for(var j = 0; j < 9; j++) {
-			if(aGrid[i][j] === 0) {
-				for(var k = 1; k < 10; k++) {
-					if(isValid(aGrid, i, j, k)) {
-						k = 10;
-					}
-					else {
 
-					}
-				}
-			}
-		}
-	}
-}
-
-function isValid(aGrid, row, col, num) {
-	if(aGrid[row].indexOf(num) == -1 && 
-		columnToArray(aGrid, col).indexOf(num) == -1 && 
-		subsquareToArray(aGrid, row, col).indexOf(num) == -1) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-function columnToArray(aGrid, col) {
-	var colArray;
-	for(var i = 0; i < 9; i++) {
-		colArray.push(aGrid[i][col]);
-	}
-	return colArray;
-}
-
-//Convert a subsquare to a 1D array, top left to bottom right
-function subsquareToArray(aGrid, row, col) {
-	var subArray;
-	var subrow = row - (row % 3);
-	var subcol = col - (col % 3);
-	for(var i = 0; i < 3; i++) {
-		for(var j = 0; j < 3; j++) {
-			subArray.push(aGrid[i+subrow][j+subcol]);
-		}
-	}
-	return subArray;
-}
