@@ -26,6 +26,7 @@ function generateSudoku() {
 
 	shuffle(grid);
 	hideTiles(grid, hGrid);
+
 	this.getTileNumber = function(row, col) {
 		return hGrid[row][col];
 	};
@@ -34,57 +35,25 @@ function generateSudoku() {
 		return grid[row][col];
 	};
 
-	this.setNumber = function(row, col, num) {
-		grid[row][col] = num;
-	};
-
-	this.solver = function(fGrid, row, col, val) {
-		//alert("accessing solver function with value: " + val);
-		//alert("fGrid: " + fGrid);
-		//alert("row: " + row + ", col: " + col + ", val: " + val);
-		var v = this.isValid(fGrid, row, col, val);
-		if(!v) {
-			//alert("solver: false");
-			return false;
-		}
-		//alert("solver: true");
-		return true;
-	};
-
 	this.isValid = function(fGrid, row, col, val) {
-		//alert("accessing isvalid function with value: " + val);
-		//alert("fGrid: "+ fGrid);
-
 		var rowCnt = this.countInstances(fGrid[row], val);
-		//alert("fGrid[" + row + "]: " + fGrid[row] + ", rowCnt: " + rowCnt);
-
 		var colCnt = this.countInstances(this.columnToArray(fGrid, col), val);
-		//alert("columnToArray(fGrid, " + col + "): " + this.columnToArray(fGrid, col) + ", colCnt: " + colCnt);
-
 		var subCnt = this.countInstances(this.subsquareToArray(fGrid, row, col), val);
-		//alert("subsquareToArray(fGrid, " + row + ", " + col + "): " + this.subsquareToArray(fGrid, row, col) + ", subCnt: " + subCnt);
-
 		if(rowCnt == 1 && colCnt == 1 && subCnt == 1) {
-			//alert("isvalid: true");
 			return true;
 		}
-		//alert("isvalid: false");
 		return false;
 	};
 
 	this.columnToArray = function(fGrid, col) {
-		//alert("accessing columnToArray function");
 		var colArray = [];
 		for(var i = 0; i < 9; i++) {
 			colArray.push(fGrid[i][col]);
 		}
-		//alert("colarray: " + colArray);
 		return colArray;
 	};
 
-	//Convert a subsquare to a 1D array, top left to bottom right
 	this.subsquareToArray = function(fGrid, row, col) {
-		//alert("accessing subsquareToArray function");
 		var subArray = [];
 		var subrow = row - (row % 3);
 		var subcol = col - (col % 3);
@@ -93,14 +62,13 @@ function generateSudoku() {
 				subArray.push(fGrid[i+subrow][j+subcol]);
 			}
 		}
-		//alert("subarray: " + subArray);
 		return subArray;
 	};
 
-	this.countInstances = function(xGrid, val) {
+	this.countInstances = function(arr, val) {
 		var cnt = 0;
-		for(var i = 0; i < xGrid.length; i++) {
-			if(xGrid[i] == val) cnt++;
+		for(var i = 0; i < arr.length; i++) {
+			if(arr[i] == val) cnt++;
 		}
 		return cnt;
 	};
@@ -195,25 +163,3 @@ function hideTiles(aGrid, hiddenGrid) {
 		numTiles--;
 	}
 }
-
-	/*
-	for(var i = 0; i < 9; i++) {
-		for(var j = 0; j < 9; j++) {
-			var temp = grid[i][j];
-			grid[i][j] = "";
-			for(var k = 0; k < 9; k++) {
-				if( solver() ) {
-					var pos = [i][j];
-					hiddenGrid.push(pos);
-				}
-				else {// not unique
-					grid[i][j] = temp;
-				}
-			}
-		}
-	}
-
-	*/
-
-
-

@@ -1,7 +1,6 @@
-
-
-#logosection {
-	/* box-shadow: 0px 15px 10px 1px #888888; */
+body {
+	position: relative;
+	text-align: center;
 }
 
 img.logo {
@@ -61,15 +60,69 @@ td.emptyCell {
 }
 
 .inner td:hover {
-	background-color:#d5e8e1;
-}
-
-.inner td.error {
-	color:#ff0000;
+	background-color:#f2e5ee;
 }
 
 .inner td.selected {
-	background-color:#ecbcda;
+	background-color:#ffbce2;
+}
+
+.mistakeScreen {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	top:50%;
+    left:50%;
+    margin:-70px 0 0 -150px;
+	display: none;
+	background-color: #6e802f;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-o-border-radius: 20px;
+	-ms-border-radius: 20px;
+	border-radius: 20px;
+	cursor: context-menu;
+	z-index: 1000;
+}
+
+.mistakeText {
+	text-align: center;
+	padding: 65px;
+	line-height: 40px;
+	font-size: 25px;
+	color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.winScreen {
+	position: absolute;
+	width: 500px;
+	height: 500px;
+	top:50%;
+    left:50%;
+    margin:-170px 0 0 -250px;
+	display: none;
+	background-color: #e2525f;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-o-border-radius: 20px;
+	-ms-border-radius: 20px;
+	border-radius: 20px;
+	cursor: context-menu;
+	z-index: 1000;
+}
+
+.winText {
+	text-align: center;
+	padding: 100px;
+	line-height: 70px;
+	font-size: 50px;
+	color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: context-menu;
 }
 
 #sudokuPuzzle {
@@ -105,7 +158,7 @@ td.emptyCell {
 	-ms-border-radius: 20px;
 	border-radius: 20px;
 	cursor: pointer;
-	z-index: 1000;
+	z-index: 500;
 }
 
 .padNumbers {
@@ -117,6 +170,10 @@ td.emptyCell {
     font-family: Arial, sans-serif;
     font-weight: bold;
     cursor: pointer;
+}
+
+#numPad span:hover {
+	color: #e2525f;
 }
 
 footer {

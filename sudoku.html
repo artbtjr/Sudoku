@@ -21,51 +21,28 @@
 				    $("#numPad").fadeIn(100);
 				    $("#numPad").offset({left: e.pageX - 78,top: e.pageY - 40});
 				});
-				$("#np1").click(function() {
-					numberPad(1);
+				$("#np1").click(function() { numberPad(1); });
+				$("#np2").click(function() { numberPad(2); });
+				$("#np3").click(function() { numberPad(3); });
+				$("#np4").click(function() { numberPad(4); });
+				$("#np5").click(function() { numberPad(5); });
+				$("#np6").click(function() { numberPad(6); });
+				$("#np7").click(function() { numberPad(7); });
+				$("#np8").click(function() { numberPad(8); });
+				$("#np9").click(function() { numberPad(9); });
+				$("#npx").click(function() { numberPad(""); });
+				$(".mistakeScreen").click(function() {
+					$(".mistakeScreen").fadeOut(100);
 				});
-				$("#np2").click(function() {
-					numberPad(2);
-				});
-				$("#np3").click(function() {
-					numberPad(3);
-				});
-				$("#np4").click(function() {
-					numberPad(4);
-				});
-				$("#np5").click(function() {
-					numberPad(5);
-				});
-				$("#np6").click(function() {
-					numberPad(6);
-				});
-				$("#np7").click(function() {
-					numberPad(7);
-				});
-				$("#np8").click(function() {
-					numberPad(8);
-				});
-				$("#np9").click(function() {
-					numberPad(9);
-				});
-				$("#npx").click(function() {
-					numberPad("");
-				});
+				$("#newGame").click(function() { newGame(); });
 				$("#solve").click(function() {
 					$("#numPad").fadeOut(100);
 				    solve();
 				});
-				$("#newGame").click(function() {
-				    puzzle = null;
-				    selectedTile = null;
-				    r = null;
-				    c = null;
-				    init();
-				});
+				
 			});
 
 			
-
 			function init() {
 				puzzle = new generateSudoku();
 				for(var i = 0; i < 9; i++) {
@@ -74,23 +51,25 @@
 						if(puzzle.getTileNumber(i, j) === 0) {
 							tile.className = "emptyCell";
 							tile.innerHTML = "";
-							tile.onclick = function() {
-								if(selectedTile == null) {
-									selectedTile = this;
-									selectedTile.className = "emptyCell selected";
-								}
-								else {
-									deselect();
-									$("#numPad").fadeOut(100);
-								}
-							};
+							tile.onclick = tOnClick;
 						}
 						else {
-							tile.style.backgroundColor = "#f3f7f8";
+							tile.style.backgroundColor = "#ecf4f3";
 							tile.className = "cell";
 							tile.innerHTML = puzzle.getTileNumber(i, j);
 						}
 					}
+				}
+			}
+
+			function tOnClick() {
+				if(selectedTile == null) {
+					selectedTile = this;
+					selectedTile.className = "emptyCell selected";
+				}
+				else {
+					deselect();
+					$("#numPad").fadeOut(100);
 				}
 			}
 
@@ -103,20 +82,18 @@
 					for(var i = 0; i < 9; i++) {
 						for(var j = 0; j < 9; j++) {
 							var t = document.getElementById("t" + i + "x" + j);
-							//alert("emptyCell assigned2: " + t.classList.contains("emptyCell") + i + "x" + j);
 							if(t.classList.contains("emptyCell")) {
-								if(puzzle.solver(fGrid, i, j, t.innerHTML)) {
-									//alert("number at t" + i + "x" + j + " is correct");
+								if(puzzle.isValid(fGrid, i, j, t.innerHTML)) {
 									continue;
 								}
 								else {
-									alert("number at t" + i + "x" + j + " is NOT correct");
-									return; //error function
+									$(".mistakeScreen").fadeIn(100);
+									return;
 								}
 							}
 						}
 					}
-					alert("You win!");
+					$(".winScreen").fadeIn(100);
 					return;
 				}
 			}
@@ -129,7 +106,6 @@
 						fGrid[i][j] = document.getElementById("t" + i + "x" + j).innerHTML;
 					}
 				}
-				//alert("getFinishedGrid fGrid: " + fGrid);
 				return fGrid;
 			}
 
@@ -149,11 +125,7 @@
 			}
 
 			function newGame() {
-				puzzle = null;
-			    selectedTile = null;
-			    selectedTile.className = "cell";
-			    r = null;
-			    c = null;
+				location.reload();
 			}
 
 			function solve() {
@@ -164,15 +136,16 @@
 					}
 				}
 			}
-
-			function showErrors() {
-
-			}
 		</script>
-
 	</head>
 
 	<body>
+		<div class="mistakeScreen">
+			<center class="mistakeText">Pffft. Looks like you made a mistake somewhere.</center>
+		</div>
+		<div class="winScreen">
+			<center class="winText">You're a winner. That's pretty neat.</center>
+		</div>
 		<section id="logosection">
 			<img class="logo" src="img/sudokuberlogo.png" />
 		</section>
@@ -193,12 +166,12 @@
 						<span id="np9" class='padNumbers' value='9'>9</span>
 						<span id="npx" class='padNumbers' value='x'>x</span>
 					</div>
-			</center>
+				</center>
 			</div>
 			<center>
 				<form id="formwrapper">
 					<span id="newGame" class="formbutton">Give me another</span>
-					<span id="solve" class="formbutton">Give up, loser</span>
+					<span id="solve" class="formbutton">Give up</span>
 				</form>
 			</center>
 			<table class="inner container" align="center" id="grid">
@@ -251,15 +224,11 @@
 					<td id='t8x3'></td><td id='t8x4'></td><td id='t8x5'></td>
 					<td id='t8x6'></td><td id='t8x7'></td><td id='t8x8'></td>
 				</tr>
-
-
 			</table>
-			
 		</section>
-		
 	</body>
 
 	<footer>
-		Web page design by Art Tucay Jr., for Uber Inc. All fonts within this page are used under personal means and are not meant for commerial use. Rakoon font designed by Mans Greback.
+		Web page design by Art Tucay Jr., for Uber Inc. All libraries and fonts within this page are used under personal means and are not meant for commerial use.
 	</footer>
 </html>
