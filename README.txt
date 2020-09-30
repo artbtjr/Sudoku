@@ -87,7 +87,7 @@ iOS (Safari version unconfirmed)
 
 Imported fonts:
 
-Rakoon by Mans Greback (Used in logo design)
+Rakoon by Mans Greback (Used in logo design).
 
 
 
